@@ -1,0 +1,81 @@
+{
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:058264545728:task-definition/InfraStackbackendTaskDefB2315BD2:6",
+    "containerDefinitions": [
+        {
+            "name": "WebContainer",
+            "image": "amazon/amazon-ecs-sample",
+            "cpu": 0,
+            "memory": 128,
+            "links": [],
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "hostPort": 0,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "entryPoint": [],
+            "command": [],
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "secrets": [],
+            "dnsServers": [],
+            "dnsSearchDomains": [],
+            "extraHosts": [],
+            "dockerSecurityOptions": [],
+            "dockerLabels": {},
+            "ulimits": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "InfraStack-backendTaskDefWebContainerLogGroup9444344B-fprlGOuAbM0A",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "clcm3506"
+                },
+                "secretOptions": []
+            },
+            "systemControls": [],
+            "credentialSpecs": []
+        }
+    ],
+    "family": "InfraStackbackendTaskDefB2315BD2",
+    "taskRoleArn": "arn:aws:iam::058264545728:role/InfraStack-backendTaskDefTaskRole12124EA8-avg6Hi83EruJ",
+    "executionRoleArn": "arn:aws:iam::058264545728:role/InfraStack-backendTaskDefExecutionRole05B236C7-bx4QtCh9Sgww",
+    "networkMode": "bridge",
+    "revision": 6,
+    "volumes": [],
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.17"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        }
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EXTERNAL",
+        "EC2"
+    ],
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "registeredAt": "2024-04-04T15:49:29.624000-06:00",
+    "registeredBy": "arn:aws:sts::058264545728:assumed-role/cdk-hnb659fds-cfn-exec-role-058264545728-us-east-1/AWSCloudFormation"
+}
