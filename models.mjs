@@ -4,6 +4,7 @@ import Joi from 'joi';
 dynamo.AWS.config.update({ region: 'us-east-1' });
 
 const Patients = dynamo.define('Patients', {
+  tableName: 'Patients',
   hashKey: 'id',
 
   // add the timestamp attributes (updatedAt, createdAt)
@@ -21,6 +22,7 @@ const Patients = dynamo.define('Patients', {
 });
 
 const Records = dynamo.define('Records', {
+  tableName: 'Records',
   hashKey: 'id',
   timestamps: true,
 
