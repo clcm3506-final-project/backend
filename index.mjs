@@ -33,7 +33,7 @@ app.get('/patients/:id', (req, res) => {
 app.post('/patients', async (req, res) => {
   const newPatient = new Patients(req.body);
   await newPatient.save();
-  return res.json(newPatient.get('id'));
+  return res.status(201).json({ id: newPatient.id });
 });
 
 app.put('/patients/:id', (req, res) => {
@@ -41,7 +41,7 @@ app.put('/patients/:id', (req, res) => {
     if (err) {
       return res.status(400).json({ error: err.message });
     }
-    return res.json(data);
+    return res.sendStatus(200);
   });
 });
 
@@ -50,7 +50,7 @@ app.delete('/patients/:id', (req, res) => {
     if (err) {
       return res.status(400).json({ error: err.message });
     }
-    return res.json(data);
+    return res.sendStatus(204);
   });
 });
 
@@ -82,7 +82,7 @@ app.post('/records', async (req, res) => {
     return res.status(400).json({ error: 'Patient not found' });
   }
   await newRecord.save();
-  return res.json(newRecord.id);
+  return res.status(201).json({ id: newRecord.id });
 });
 
 app.put('/records/:id', (req, res) => {
@@ -90,7 +90,7 @@ app.put('/records/:id', (req, res) => {
     if (err) {
       return res.status(400).json({ error: err.message });
     }
-    return res.json(data);
+    return res.status(200);
   });
 });
 
@@ -99,7 +99,7 @@ app.delete('/records/:id', (req, res) => {
     if (err) {
       return res.status(400).json({ error: err.message });
     }
-    return res.json(data);
+    return res.status(204);
   });
 });
 
