@@ -22,6 +22,7 @@ app.get('/patients', (req, res) => {
         return res.json(patients);
       });
   } catch (err) {
+    console.error(err.message);
     return res.status(500).json({ error: err.message });
   }
 });
@@ -35,6 +36,7 @@ app.get('/patients/:id', (req, res) => {
       return res.json(patient);
     });
   } catch (err) {
+    console.error(err.message);
     return res.status(500).json({ error: err.message });
   }
 });
@@ -46,6 +48,7 @@ app.post('/patients', async (req, res) => {
     await newPatient.save();
     return res.status(201).json({ id: newPatient.id });
   } catch (err) {
+    console.error(err.message);
     return res.status(500).json({ error: err.message });
   }
 });
@@ -59,6 +62,7 @@ app.put('/patients/:id', (req, res) => {
       return res.sendStatus(200);
     });
   } catch (err) {
+    console.error(err.message);
     return res.status(500).json({ error: err.message });
   }
 });
@@ -72,6 +76,7 @@ app.delete('/patients/:id', (req, res) => {
       return res.sendStatus(204);
     });
   } catch (err) {
+    console.error(err.message);
     return res.status(500).json({ error: err.message });
   }
 });
