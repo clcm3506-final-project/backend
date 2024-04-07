@@ -31,13 +31,26 @@ pipeline {
 
     stage('Fill in the new image ID in the Amazon ECS task definition') {
       steps {
-        sh 'sed -i "s|<IMAGE_NAME>|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" task-definition.json'
+        sh '''
+          jq '.containerDefinitions[].image = "'$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG'"' task-definition.json > task-definition-updated.json
+          mv task-definition-updated.json task-definition.json
+        '''
+      }
+    }
+
+    stage('Register new task definition') {
+      steps {
+        script {
+          def output = sh(script: 'aws ecs register-task-definition --cli-input-json file://task-definition.json', returnStdout: true)
+          def jsonOutput = readJSON text: output
+          env.TASK_DEFINITION_ARN = jsonOutput.taskDefinition.taskDefinitionArn
+        }
       }
     }
 
     stage('Deploy Amazon ECS task definition') {
       steps {
-        sh 'aws ecs update-service --cluster clcm3506-cluster --service clcm3506-backend-service --task-definition $(jq -r .taskDefinitionArn task-definition.json)'
+        sh 'aws ecs update-service --cluster clcm3506-cluster --service clcm3506-backend-service --task-definition $TASK_DEFINITION_ARN'
       }
     }
   }
