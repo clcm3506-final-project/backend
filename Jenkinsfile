@@ -34,9 +34,8 @@ pipeline {
     stage('Register new task definition') {
       steps {
         script {
-          def output = sh(script: 'aws ecs register-task-definition --cli-input-json file://new-task-definition.json', returnStdout: true)
-          def jsonOutput = readJSON text: output
-          env.TASK_DEFINITION_ARN = jsonOutput.taskDefinition.taskDefinitionArn
+          def taskDefinitionArn = sh(script: 'aws ecs register-task-definition --cli-input-json file://new-task-definition.json --query taskDefinition.taskDefinitionArn --output text', returnStdout: true).trim()
+          env.TASK_DEFINITION_ARN = taskDefinitionArn
         }
       }
     }
