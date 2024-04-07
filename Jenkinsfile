@@ -26,11 +26,11 @@ pipeline {
     stage('Fill in the new image ID in the Amazon ECS task definition') {
       steps {
         sh '''
-          jq '.containerDefinitions[].image = "'$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG'"' task-definition-template.json > task-definition.json
+          jq '.containerDefinitions[].image = "'$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG'"' task-definition.json > task-definition.json
         '''
       }
     }
-    
+
     stage('Register new task definition') {
       steps {
         script {
