@@ -36,15 +36,15 @@ pipeline {
             volumes: .volumes,
             placementConstraints: .placementConstraints,
             requiresCompatibilities: .requiresCompatibilities,
-            cpu: .cpu,
-            memory: .memory,
-            tags: .tags,
-            pidMode: .pidMode,
-            ipcMode: .ipcMode,
-            proxyConfiguration: .proxyConfiguration,
-            inferenceAccelerators: .inferenceAccelerators,
-            ephemeralStorage: .ephemeralStorage,
-            runtimePlatform: .runtimePlatform
+            cpu: if .cpu != null then .cpu else empty end,
+            memory: if .memory != null then .memory else empty end,
+            tags: if .tags != null then .tags else empty end,
+            pidMode: if .pidMode != null then .pidMode else empty end,
+            ipcMode: if .ipcMode != null then .ipcMode else empty end,
+            proxyConfiguration: if .proxyConfiguration != null then .proxyConfiguration else empty end,
+            inferenceAccelerators: if .inferenceAccelerators != null then .inferenceAccelerators else empty end,
+            ephemeralStorage: if .ephemeralStorage != null then .ephemeralStorage else empty end,
+            runtimePlatform: if .runtimePlatform != null then .runtimePlatform else empty end
           }' full-task-definition.json > task-definition.json
         '''
       }
