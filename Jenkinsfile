@@ -3,7 +3,7 @@ pipeline {
 
   environment {
     AWS_DEFAULT_REGION = 'us-east-1'
-    ECR_REGISTRY = 'your-ecr-registry-url' // replace with your ECR registry URL
+    ECR_REGISTRY = '058264545728.dkr.ecr.us-east-1.amazonaws.com'
     ECR_REPOSITORY = 'clcm3506-backend'
     IMAGE_TAG = "${env.GIT_COMMIT}"
   }
