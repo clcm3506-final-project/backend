@@ -26,7 +26,7 @@ pipeline {
     stage('Fill in the new image ID in the Amazon ECS task definition') {
       steps {
         sh '''
-          jq '.containerDefinitions[].image = "'$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG'"' task-definition.json > task-definition.json
+          jq '.containerDefinitions[].image = "'$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG'"' task-definition.json > new-task-definition.json
         '''
       }
     }
@@ -34,7 +34,7 @@ pipeline {
     stage('Register new task definition') {
       steps {
         script {
-          def output = sh(script: 'aws ecs register-task-definition --cli-input-json file://task-definition.json', returnStdout: true)
+          def output = sh(script: 'aws ecs register-task-definition --cli-input-json file://new-task-definition.json', returnStdout: true)
           def jsonOutput = readJSON text: output
           env.TASK_DEFINITION_ARN = jsonOutput.taskDefinition.taskDefinitionArn
         }
