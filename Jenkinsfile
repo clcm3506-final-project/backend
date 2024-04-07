@@ -25,7 +25,28 @@ pipeline {
 
     stage('Download task definition') {
       steps {
-        sh 'aws ecs describe-task-definition --task-definition clcm3506-task --query taskDefinition > task-definition.json'
+        sh '''
+          aws ecs describe-task-definition --task-definition clcm3506-task --query taskDefinition > full-task-definition.json
+          jq '{
+            family: .family,
+            taskRoleArn: .taskRoleArn,
+            executionRoleArn: .executionRoleArn,
+            networkMode: .networkMode,
+            containerDefinitions: .containerDefinitions,
+            volumes: .volumes,
+            placementConstraints: .placementConstraints,
+            requiresCompatibilities: .requiresCompatibilities,
+            cpu: .cpu,
+            memory: .memory,
+            tags: .tags,
+            pidMode: .pidMode,
+            ipcMode: .ipcMode,
+            proxyConfiguration: .proxyConfiguration,
+            inferenceAccelerators: .inferenceAccelerators,
+            ephemeralStorage: .ephemeralStorage,
+            runtimePlatform: .runtimePlatform
+          }' full-task-definition.json > task-definition.json
+        '''
       }
     }
 
